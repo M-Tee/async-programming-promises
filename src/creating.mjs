@@ -40,6 +40,22 @@ export function clearIntervalChain(){
 }
 
 export function xhr(){
+    let request = new Promise ( (resolve,reject) =>{
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET',"http://localhost:3000/users/3");
+        xhr.onload = () => {
+            if(xhr.status === 200){
+                resolve(xhr.responseText)
+            } else{
+                reject(xhr.statusText);
+            }
+        };
+        xhr.onerror = () => reject('Request failed');
+        xhr.send();
+    });
+    request
+    .then( result => setText(result))
+    .catch( reason => setText(reason));
 }
 
 export function allPromises(){
